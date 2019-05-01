@@ -20,7 +20,9 @@ th, td {
     <h1> Upload File! </h1>
     <form action="" method="post" enctype="multipart/form-data">
         Pilih file: <input type="file" name="berkas"/>
-        <p><input type="submit" name="submit" value="upload"/></p>
+        <input type="submit" name="submit" value="upload"/>
+        <br/>
+        <p><button type="submit" name="list">List</button></p>
     </form>
     <?php
         require_once 'vendor/autoload.php';
@@ -52,15 +54,21 @@ th, td {
                 move_uploaded_file($fileDirectory,"image/$fileName");
  
                try {
+
                     // Getting local file so that we can upload it to Azure
                     $myfile = fopen("image/$fileName", "r") or die("Unable to open file!");
                     fclose($myfile);
+        
+                    # Upload file as a block blob
+                    echo "Uploading BlockBlob: ".PHP_EOL;
+                    echo $fileToUpload;
+                    echo "<br />";
             
                     $content = fopen("image/$fileName", "r");
 
                     //Upload blob
                     $blobClient->createBlockBlob($containerName, $fileName, $content);
-                    echo "$fileName Uploaded!"
+
                 }
                 catch(ServiceException $e){
                     // Handle exception based on error codes and messages.
@@ -80,8 +88,8 @@ th, td {
                 }
             }
           else echo "ERROR";
-       }  
-    
+       } else echo "Dont to work";
+       
        if (isset($_POST['list'])) {
            // List blobs.
            $listBlobsOptions = new ListBlobsOptions();
@@ -111,7 +119,7 @@ th, td {
                $listBlobsOptions->setContinuationToken($result->getContinuationToken());
            } while($result->getContinuationToken());
           echo "<br/>";
-       } 
+       }    
     ?>
 </body>
 </html>
