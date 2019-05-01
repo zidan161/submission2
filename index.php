@@ -52,7 +52,6 @@ th, td {
                 move_uploaded_file($fileDirectory,"image/$fileName");
  
                try {
-
                     // Getting local file so that we can upload it to Azure
                     $myfile = fopen("image/$fileName", "r") or die("Unable to open file!");
                     fclose($myfile);
@@ -62,7 +61,29 @@ th, td {
                     //Upload blob
                     $blobClient->createBlockBlob($containerName, $fileName, $content);
                     echo "$fileName Uploaded!"
-                        
+                }
+                catch(ServiceException $e){
+                    // Handle exception based on error codes and messages.
+                    // Error codes and messages are here:
+                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
+                    $code = $e->getCode();
+                    $error_message = $e->getMessage();
+                    echo $code.": ".$error_message."<br />";
+                }
+                catch(InvalidArgumentTypeException $e){
+                    // Handle exception based on error codes and messages.
+                    // Error codes and messages are here:
+                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
+                    $code = $e->getCode();
+                    $error_message = $e->getMessage();
+                    echo $code.": ".$error_message."<br />";
+                }
+            }
+          else echo "ERROR";
+       }  
+    
+       if (isset($_POST['list'])) {
+           // List blobs.
            $listBlobsOptions = new ListBlobsOptions();
 
            do{
@@ -90,26 +111,7 @@ th, td {
                $listBlobsOptions->setContinuationToken($result->getContinuationToken());
            } while($result->getContinuationToken());
           echo "<br/>";
-                }
-                catch(ServiceException $e){
-                    // Handle exception based on error codes and messages.
-                    // Error codes and messages are here:
-                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
-                    $code = $e->getCode();
-                    $error_message = $e->getMessage();
-                    echo $code.": ".$error_message."<br />";
-                }
-                catch(InvalidArgumentTypeException $e){
-                    // Handle exception based on error codes and messages.
-                    // Error codes and messages are here:
-                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
-                    $code = $e->getCode();
-                    $error_message = $e->getMessage();
-                    echo $code.": ".$error_message."<br />";
-                }
-            }
-          else echo "ERROR";
-       }  
+       } 
     ?>
 </body>
 </html>
