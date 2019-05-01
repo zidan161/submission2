@@ -37,7 +37,7 @@ th, td {
         $accountName = "zidanstorage";
         $accountKey = "BAZ5xbwvB6GmxpztApG4wNBUpaeEk7A74cY6v17D7ScigLOakGNJEmkuIhXswZ3ljyY7f1Ay6ObuAOQbgVZcgg==";
 
-        $connectionString = "DefaultEndpointsProtocol=https;AccountName=".$accountKey.";AccountKey=".$accountName;
+        $connectionString = "DefaultEndpointsProtocol=https;AccountName=".$accountName.";AccountKey=".$accountKey;
    
         $containerName = "blockblobs";
 
