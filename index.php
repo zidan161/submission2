@@ -88,7 +88,7 @@ th, td {
                 }
             }
           else echo "ERROR";
-       } else echo "Dont to work";
+       }
        
        if (isset($_POST['list'])) {
            // List blobs.
