@@ -75,10 +75,9 @@
     <br><br>
     <?php
        if(isset($_POST['button'])){
-         $url = $_POST['value'];
+         $url = $_POST['button'];
          echo "Image to analyze:
-               <input type='text' name='inputImage' id='inputImage'
-               value='$url'/>";
+               <input type='text' name='inputImage' id='inputImage' value='$url'/>";
        } else echo "ERROR"
     ?>
     <button onclick="processImage()">Analyze image</button>
