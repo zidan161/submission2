@@ -20,9 +20,7 @@ th, td {
     <h1> Upload File! </h1>
     <form action="" method="post" enctype="multipart/form-data">
         Pilih file: <input type="file" name="berkas"/>
-        <input type="submit" name="submit" value="upload"/>
-        <br/>
-        <p><button type="submit" name="list">List</button></p>
+        <p><input type="submit" name="submit" value="upload"/></p>
     </form>
     <?php
         require_once 'vendor/autoload.php';
@@ -58,40 +56,13 @@ th, td {
                     // Getting local file so that we can upload it to Azure
                     $myfile = fopen("image/$fileName", "r") or die("Unable to open file!");
                     fclose($myfile);
-        
-                    # Upload file as a block blob
-                    echo "Uploading BlockBlob: ".PHP_EOL;
-                    echo $fileToUpload;
-                    echo "<br />";
             
                     $content = fopen("image/$fileName", "r");
 
                     //Upload blob
                     $blobClient->createBlockBlob($containerName, $fileName, $content);
-
-                }
-                catch(ServiceException $e){
-                    // Handle exception based on error codes and messages.
-                    // Error codes and messages are here:
-                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
-                    $code = $e->getCode();
-                    $error_message = $e->getMessage();
-                    echo $code.": ".$error_message."<br />";
-                }
-                catch(InvalidArgumentTypeException $e){
-                    // Handle exception based on error codes and messages.
-                    // Error codes and messages are here:
-                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
-                    $code = $e->getCode();
-                    $error_message = $e->getMessage();
-                    echo $code.": ".$error_message."<br />";
-                }
-            }
-          else echo "ERROR";
-       } else echo "Dont to work";
-       
-       if (isset($_POST['list'])) {
-           // List blobs.
+                    echo "$fileName Uploaded!"
+                        
            $listBlobsOptions = new ListBlobsOptions();
 
            do{
@@ -119,7 +90,26 @@ th, td {
                $listBlobsOptions->setContinuationToken($result->getContinuationToken());
            } while($result->getContinuationToken());
           echo "<br/>";
-       }    
+                }
+                catch(ServiceException $e){
+                    // Handle exception based on error codes and messages.
+                    // Error codes and messages are here:
+                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
+                    $code = $e->getCode();
+                    $error_message = $e->getMessage();
+                    echo $code.": ".$error_message."<br />";
+                }
+                catch(InvalidArgumentTypeException $e){
+                    // Handle exception based on error codes and messages.
+                    // Error codes and messages are here:
+                    // http://msdn.microsoft.com/library/azure/dd179439.aspx
+                    $code = $e->getCode();
+                    $error_message = $e->getMessage();
+                    echo $code.": ".$error_message."<br />";
+                }
+            }
+          else echo "ERROR";
+       }  
     ?>
 </body>
 </html>
