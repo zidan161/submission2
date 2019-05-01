@@ -33,9 +33,12 @@ th, td {
         use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
         use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
         use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
+  
+        $accountName = "zidanstorage";
+        $accountKey = "BAZ5xbwvB6GmxpztApG4wNBUpaeEk7A74cY6v17D7ScigLOakGNJEmkuIhXswZ3ljyY7f1Ay6ObuAOQbgVZcgg==";
 
-        $connectionString = "DefaultEndpointsProtocol=https;AccountName=".getenv('ACCOUNT_NAME').";AccountKey=".getenv('ACCOUNT_KEY');
-   
+        $connectionString = "DefaultEndpointsProtocol=https;AccountName=".$accountName.";AccountKey=".$accountKey;
+    
         $containerName = "blockblobs";
 
         // Membuat blob client.
