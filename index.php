@@ -58,17 +58,12 @@ th, td {
                     // Getting local file so that we can upload it to Azure
                     $myfile = fopen("image/$fileName", "r") or die("Unable to open file!");
                     fclose($myfile);
-        
-                    # Upload file as a block blob
-                    echo "Uploading BlockBlob: ".PHP_EOL;
-                    echo $fileToUpload;
-                    echo "<br />";
             
                     $content = fopen("image/$fileName", "r");
 
                     //Upload blob
                     $blobClient->createBlockBlob($containerName, $fileName, $content);
-
+                    echo "$fileName Uploaded!";
                 }
                 catch(ServiceException $e){
                     // Handle exception based on error codes and messages.
