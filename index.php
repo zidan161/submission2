@@ -40,6 +40,9 @@ th, td {
         $connectionString = "DefaultEndpointsProtocol=https;AccountName=".$accountName.";AccountKey=".$accountKey;
    
         $containerName = "blockblobs";
+
+        // Membuat blob client.
+        $blobClient = BlobRestProxy::createBlobService($connectionString);
     
     function getList() {
            // List blobs.
@@ -71,9 +74,6 @@ th, td {
            } while($result->getContinuationToken());
           echo "<br/>";
        } 
-
-        // Membuat blob client.
-        $blobClient = BlobRestProxy::createBlobService($connectionString);
     
         getList();
 
