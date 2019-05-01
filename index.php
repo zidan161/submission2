@@ -105,7 +105,7 @@ th, td {
                         <tr>
                           <td>$name</td>
                           <td>$url</td>
-                          <td><button type='submit' name='button' value='$url'/>Analize!</td>
+                          <td><button type='submit' name='button' value='$url'/>Analyze!</td>
                         </tr>
                        </form>";
                }
